@@ -1,5 +1,8 @@
 package scalableIO.stateMachineReactor;
 
+import scalableIO.stateMachineReactor.state.ChannelState;
+import scalableIO.stateMachineReactor.state.IChannelState;
+
 import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
@@ -33,14 +36,21 @@ public abstract class Handler extends Thread {
 			opBit = operateBit;
 		}
 	}
-	
+
+	private IChannelState currentState;
+	private ChannelState channelState;
 	private State state;
 	protected final SocketChannel clientChannel;
 	protected final SelectionKey key;
-	
+
+
+
 	protected final ByteBuffer readBuf;
 	protected final StringBuilder readData = new StringBuilder();
 	protected ByteBuffer writeBuf;
+
+
+
 	
 	public Handler(Selector selector, SocketChannel clientChannel){
 		this.state = State.CONNECTING;
@@ -215,7 +225,45 @@ public abstract class Handler extends Thread {
 	private static SocketAddress clientAddress(SocketChannel clientChannel){
 		return clientChannel.socket().getRemoteSocketAddress();
 	}
-	
+
+
+	public IChannelState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(IChannelState currentState) {
+		this.currentState = currentState;
+	}
+
+
+	public ChannelState getChannelState() {
+		return channelState;
+	}
+
+	public void setChannelState(ChannelState channelState) {
+		this.channelState = channelState;
+	}
+
+	public SelectionKey getKey() {
+		return key;
+	}
+	public SocketChannel getClientChannel()
+	{
+		return clientChannel;
+	}
+
+	public ByteBuffer getReadBuf() {
+		return readBuf;
+	}
+
+	public StringBuilder getReadData() {
+		return readData;
+	}
+
+	public ByteBuffer getWriteBuf() {
+		return writeBuf;
+	}
+
 	public abstract int byteBufferSize();
 
 	public abstract boolean readIsComplete();
