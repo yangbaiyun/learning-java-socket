@@ -9,7 +9,7 @@
         <module name="learning-java-socket" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="learning-java-socket" target="1.6" />
     </bytecodeTargetLevel>
   </component>
