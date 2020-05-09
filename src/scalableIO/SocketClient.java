@@ -6,6 +6,10 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class SocketClient {
     // 搭建客户端
@@ -28,7 +32,7 @@ public class SocketClient {
             socket.setReceiveBufferSize(20);
             //关闭Nagle算法.立即发包
             socket.setTcpNoDelay(true);
-
+           
 
             socket.connect(endpoint);
 
